@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
-
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import com.ideas.packaginglab.exception.PackagingUncheckedException;
 import com.ideas.packaginglab.model.Package;
 import com.ideas.packaginglab.model.PackageItem;
 import com.ideas.packaginglab.solver.ISolver;
@@ -24,7 +26,14 @@ import com.ideas.packaginglab.solver.transformer.PackageTransformer;
  * @author Amit
  * @since 
  */
+/**
+ * @author Amit
+ *
+ */
 public class PackagingTestCase {
+
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
 	
 	/**
@@ -159,5 +168,96 @@ public class PackagingTestCase {
 
 	}
 
+	/**
+	 * Creates rule 1 arrangements.
+	 * @return
+	 */
+	private Package createPackage5() {
+		List<PackageItem> productItems = new ArrayList<PackageItem>();
+		productItems.add(new PackageItem(1,150.3,34));
+		Package _package = new Package(1, 150, productItems);
+		return _package;
+		
+	}
+	
+
+	/**
+	 * 1. Max weight that a package can take is = 100
+	 */
+	@Test
+	public void test5() {
+		thrown.expect(PackagingUncheckedException.class);
+		Package _package = createPackage5();
+		List<PackageItem> assignedItems = assignItems(_package, SolverType.GREEDY);
+
+	}
+
+	
+	/**
+	 * Creates rule 2 arrangements.
+	 * @return
+	 */
+	private Package createPackage6() {
+		List<PackageItem> productItems = new ArrayList<PackageItem>();
+		productItems.add(new PackageItem(1,15.3,34));
+		productItems.add(new PackageItem(2,15.3,34));
+		productItems.add(new PackageItem(3,15.3,34));
+		productItems.add(new PackageItem(4,15.3,34));
+		productItems.add(new PackageItem(5,15.3,34));
+		productItems.add(new PackageItem(6,15.3,34));
+		productItems.add(new PackageItem(7,15.3,34));
+		productItems.add(new PackageItem(8,15.3,34));
+		productItems.add(new PackageItem(9,15.3,34));
+		productItems.add(new PackageItem(10,15.3,34));
+		productItems.add(new PackageItem(11,15.3,34));
+		productItems.add(new PackageItem(12,15.3,34));
+		productItems.add(new PackageItem(13,15.3,34));
+		productItems.add(new PackageItem(14,15.3,34));
+		productItems.add(new PackageItem(15,15.3,34));
+		productItems.add(new PackageItem(16,15.3,34));
+
+		Package _package = new Package(1, 75, productItems);
+		return _package;
+		
+	}
+	
+
+	/**
+	 * 2. There might be up to 15 items you need to choose from
+	 */
+	@Test
+	public void test6() {
+		thrown.expect(PackagingUncheckedException.class);
+		Package _package = createPackage6();
+		List<PackageItem> assignedItems = assignItems(_package, SolverType.GREEDY);
+
+	}
+	
+	
+	/**
+	 * Creates rule 3 arrangements.
+	 * @return
+	 */
+	private Package createPackage7() {
+		List<PackageItem> productItems = new ArrayList<PackageItem>();
+		productItems.add(new PackageItem(1,150.3,34));
+		Package _package = new Package(1, 15, productItems);
+		return _package;
+		
+	}
+	
+
+	/**
+	 * 3. Max weight and cost of an item is = 100
+	 */
+	@Test
+	public void test7() {
+		thrown.expect(PackagingUncheckedException.class);
+		Package _package = createPackage7();
+		List<PackageItem> assignedItems = assignItems(_package, SolverType.GREEDY);
+
+	}
+
+	
 	
 }

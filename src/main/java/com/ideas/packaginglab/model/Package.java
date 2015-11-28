@@ -61,6 +61,16 @@ public class Package {
 			throw new PackagingUncheckedException("Given weight "
 					+ weightAllowed + " exceeds Maximum weight allowed");
 		}
+		if (queuedPackageItems != null) { 
+			if(queuedPackageItems.size() > 15) {
+				throw new PackagingUncheckedException("Number of items exceeds maximum possible items");
+			}
+			for(PackageItem item : queuedPackageItems) {
+				if(item.getCost() > 100 || item.getWeight() > 100) {
+					throw new PackagingUncheckedException("Item cost or weight exceeds maximum possible unit set");
+				}
+			}
+		}
 		this.index = index;
 		this.weightAllowed = weightAllowed;
 		this.queuedPackageItems = queuedPackageItems;
